@@ -1,0 +1,65 @@
+smg
+
+player Agent
+	[Agent_move_north], [Agent_move_east], [Agent_move_south], [Agent_move_west], [Agent_turn_left], [Agent_turn_right]
+endplayer
+player Blue
+	[Blue_move_north], [Blue_move_east], [Blue_move_south], [Blue_move_west], [Blue_turns]
+endplayer
+
+global move : [0..1] init 0;
+
+label AgentOnBlue = (xAgent=1&yAgent=1) | (xAgent=1&yAgent=2) | (xAgent=1&yAgent=3) | (xAgent=1&yAgent=6) | (xAgent=1&yAgent=7) | (xAgent=1&yAgent=8) | (xAgent=1&yAgent=9) | (xAgent=1&yAgent=10) | (xAgent=1&yAgent=11) | (xAgent=2&yAgent=1) | (xAgent=2&yAgent=11) | (xAgent=3&yAgent=1) | (xAgent=3&yAgent=2) | (xAgent=3&yAgent=3) | (xAgent=3&yAgent=4) | (xAgent=3&yAgent=5) | (xAgent=3&yAgent=6) | (xAgent=3&yAgent=7) | (xAgent=3&yAgent=8) | (xAgent=3&yAgent=9) | (xAgent=3&yAgent=10) | (xAgent=3&yAgent=11);
+label BlueOnBlue = (xBlue=1&yBlue=1) | (xBlue=1&yBlue=2) | (xBlue=1&yBlue=3) | (xBlue=1&yBlue=6) | (xBlue=1&yBlue=7) | (xBlue=1&yBlue=8) | (xBlue=1&yBlue=9) | (xBlue=1&yBlue=10) | (xBlue=1&yBlue=11) | (xBlue=2&yBlue=1) | (xBlue=2&yBlue=11) | (xBlue=3&yBlue=1) | (xBlue=3&yBlue=2) | (xBlue=3&yBlue=3) | (xBlue=3&yBlue=4) | (xBlue=3&yBlue=5) | (xBlue=3&yBlue=6) | (xBlue=3&yBlue=7) | (xBlue=3&yBlue=8) | (xBlue=3&yBlue=9) | (xBlue=3&yBlue=10) | (xBlue=3&yBlue=11);
+label AgentOnGreen = (xAgent=9&yAgent=1) | (xAgent=9&yAgent=2) | (xAgent=9&yAgent=3) | (xAgent=9&yAgent=4) | (xAgent=9&yAgent=5) | (xAgent=9&yAgent=6) | (xAgent=9&yAgent=7) | (xAgent=9&yAgent=8) | (xAgent=9&yAgent=9) | (xAgent=9&yAgent=10) | (xAgent=9&yAgent=11) | (xAgent=10&yAgent=1) | (xAgent=10&yAgent=11) | (xAgent=11&yAgent=1) | (xAgent=11&yAgent=2) | (xAgent=11&yAgent=3) | (xAgent=11&yAgent=4) | (xAgent=11&yAgent=5) | (xAgent=11&yAgent=6) | (xAgent=11&yAgent=7) | (xAgent=11&yAgent=8) | (xAgent=11&yAgent=9) | (xAgent=11&yAgent=10) | (xAgent=11&yAgent=11);
+label BlueOnGreen = (xBlue=9&yBlue=1) | (xBlue=9&yBlue=2) | (xBlue=9&yBlue=3) | (xBlue=9&yBlue=4) | (xBlue=9&yBlue=5) | (xBlue=9&yBlue=6) | (xBlue=9&yBlue=7) | (xBlue=9&yBlue=8) | (xBlue=9&yBlue=9) | (xBlue=9&yBlue=10) | (xBlue=9&yBlue=11) | (xBlue=10&yBlue=1) | (xBlue=10&yBlue=11) | (xBlue=11&yBlue=1) | (xBlue=11&yBlue=2) | (xBlue=11&yBlue=3) | (xBlue=11&yBlue=4) | (xBlue=11&yBlue=5) | (xBlue=11&yBlue=6) | (xBlue=11&yBlue=7) | (xBlue=11&yBlue=8) | (xBlue=11&yBlue=9) | (xBlue=11&yBlue=10) | (xBlue=11&yBlue=11);
+label AgentOnRed = (xAgent=1&yAgent=4) | (xAgent=1&yAgent=5);
+label BlueOnRed = (xBlue=1&yBlue=4) | (xBlue=1&yBlue=5);
+formula AgentCannotMoveNorth = (xAgent=1&yAgent=2) | (xAgent=1&yAgent=3) | (xAgent=1&yAgent=4) | (xAgent=1&yAgent=5) | (xAgent=1&yAgent=6) | (xAgent=1&yAgent=7) | (xAgent=1&yAgent=8) | (xAgent=1&yAgent=9) | (xAgent=1&yAgent=10) | (xAgent=1&yAgent=11) | (xAgent=3&yAgent=2) | (xAgent=3&yAgent=3) | (xAgent=3&yAgent=4) | (xAgent=3&yAgent=5) | (xAgent=3&yAgent=6) | (xAgent=3&yAgent=7) | (xAgent=3&yAgent=8) | (xAgent=3&yAgent=9) | (xAgent=3&yAgent=10) | (xAgent=11&yAgent=2) | (xAgent=11&yAgent=3) | (xAgent=11&yAgent=4) | (xAgent=11&yAgent=5) | (xAgent=11&yAgent=6) | (xAgent=11&yAgent=7) | (xAgent=11&yAgent=8) | (xAgent=11&yAgent=9) | (xAgent=11&yAgent=10) | (xAgent=1&yAgent=1);
+formula AgentCannotMoveEast  = (xAgent=1&yAgent=11) | (xAgent=2&yAgent=1) | (xAgent=2&yAgent=11) | (xAgent=3&yAgent=11) | (xAgent=4&yAgent=11) | (xAgent=5&yAgent=11) | (xAgent=6&yAgent=11) | (xAgent=8&yAgent=11) | (xAgent=9&yAgent=11) | (xAgent=10&yAgent=1) | (xAgent=10&yAgent=11) | (xAgent=11&yAgent=11) | (xAgent=7&yAgent=11);
+formula AgentCannotMoveSouth = (xAgent=1&yAgent=2) | (xAgent=1&yAgent=3) | (xAgent=1&yAgent=4) | (xAgent=1&yAgent=5) | (xAgent=1&yAgent=6) | (xAgent=1&yAgent=7) | (xAgent=1&yAgent=8) | (xAgent=1&yAgent=9) | (xAgent=1&yAgent=10) | (xAgent=9&yAgent=2) | (xAgent=9&yAgent=3) | (xAgent=9&yAgent=4) | (xAgent=9&yAgent=5) | (xAgent=9&yAgent=6) | (xAgent=9&yAgent=7) | (xAgent=9&yAgent=8) | (xAgent=9&yAgent=9) | (xAgent=9&yAgent=10) | (xAgent=11&yAgent=1) | (xAgent=11&yAgent=2) | (xAgent=11&yAgent=3) | (xAgent=11&yAgent=4) | (xAgent=11&yAgent=5) | (xAgent=11&yAgent=6) | (xAgent=11&yAgent=7) | (xAgent=11&yAgent=8) | (xAgent=11&yAgent=9) | (xAgent=11&yAgent=10) | (xAgent=11&yAgent=11);
+formula AgentCannotMoveWest  = (xAgent=2&yAgent=1) | (xAgent=2&yAgent=11) | (xAgent=3&yAgent=1) | (xAgent=5&yAgent=1) | (xAgent=6&yAgent=1) | (xAgent=7&yAgent=1) | (xAgent=8&yAgent=1) | (xAgent=9&yAgent=1) | (xAgent=10&yAgent=1) | (xAgent=10&yAgent=11) | (xAgent=11&yAgent=1) | (xAgent=1&yAgent=1) | (xAgent=4&yAgent=1);
+formula AgentIsOnSlippery = false;
+
+label AgentGoal = false;
+formula BlueCannotMoveNorth = (xBlue=1&yBlue=2) | (xBlue=1&yBlue=3) | (xBlue=1&yBlue=4) | (xBlue=1&yBlue=5) | (xBlue=1&yBlue=6) | (xBlue=1&yBlue=7) | (xBlue=1&yBlue=8) | (xBlue=1&yBlue=9) | (xBlue=1&yBlue=10) | (xBlue=1&yBlue=11) | (xBlue=3&yBlue=2) | (xBlue=3&yBlue=3) | (xBlue=3&yBlue=4) | (xBlue=3&yBlue=5) | (xBlue=3&yBlue=6) | (xBlue=3&yBlue=7) | (xBlue=3&yBlue=8) | (xBlue=3&yBlue=9) | (xBlue=3&yBlue=10) | (xBlue=11&yBlue=2) | (xBlue=11&yBlue=3) | (xBlue=11&yBlue=4) | (xBlue=11&yBlue=5) | (xBlue=11&yBlue=6) | (xBlue=11&yBlue=7) | (xBlue=11&yBlue=8) | (xBlue=11&yBlue=9) | (xBlue=11&yBlue=10) | (xBlue=1&yBlue=1);
+formula BlueCannotMoveEast  = (xBlue=1&yBlue=11) | (xBlue=2&yBlue=1) | (xBlue=2&yBlue=11) | (xBlue=3&yBlue=11) | (xBlue=4&yBlue=11) | (xBlue=5&yBlue=11) | (xBlue=6&yBlue=11) | (xBlue=8&yBlue=11) | (xBlue=9&yBlue=11) | (xBlue=10&yBlue=1) | (xBlue=10&yBlue=11) | (xBlue=11&yBlue=11) | (xBlue=7&yBlue=11);
+formula BlueCannotMoveSouth = (xBlue=1&yBlue=2) | (xBlue=1&yBlue=3) | (xBlue=1&yBlue=4) | (xBlue=1&yBlue=5) | (xBlue=1&yBlue=6) | (xBlue=1&yBlue=7) | (xBlue=1&yBlue=8) | (xBlue=1&yBlue=9) | (xBlue=1&yBlue=10) | (xBlue=9&yBlue=2) | (xBlue=9&yBlue=3) | (xBlue=9&yBlue=4) | (xBlue=9&yBlue=5) | (xBlue=9&yBlue=6) | (xBlue=9&yBlue=7) | (xBlue=9&yBlue=8) | (xBlue=9&yBlue=9) | (xBlue=9&yBlue=10) | (xBlue=11&yBlue=1) | (xBlue=11&yBlue=2) | (xBlue=11&yBlue=3) | (xBlue=11&yBlue=4) | (xBlue=11&yBlue=5) | (xBlue=11&yBlue=6) | (xBlue=11&yBlue=7) | (xBlue=11&yBlue=8) | (xBlue=11&yBlue=9) | (xBlue=11&yBlue=10) | (xBlue=11&yBlue=11);
+formula BlueCannotMoveWest  = (xBlue=2&yBlue=1) | (xBlue=2&yBlue=11) | (xBlue=3&yBlue=1) | (xBlue=5&yBlue=1) | (xBlue=6&yBlue=1) | (xBlue=7&yBlue=1) | (xBlue=8&yBlue=1) | (xBlue=9&yBlue=1) | (xBlue=10&yBlue=1) | (xBlue=10&yBlue=11) | (xBlue=11&yBlue=1) | (xBlue=1&yBlue=1) | (xBlue=4&yBlue=1);
+formula BlueIsOnSlippery = false;
+
+label BlueGoal = false;
+label crash = (xAgent=xBlue)&(yAgent=yBlue);
+
+module Agent
+	xAgent : [1..12] init 1;
+	yAgent : [1..12] init 1;
+
+	viewAgent : [0..3] init 1;
+
+	[Agent_turn_right]  move=0 &  true -> (viewAgent'=mod(viewAgent + 1, 4))  & (move'=1) ;
+	[Agent_turn_left]   move=0 &  viewAgent>0 -> (viewAgent'=viewAgent - 1)  & (move'=1) ;
+	[Agent_turn_left]   move=0 &  viewAgent=0 -> (viewAgent'=3)  & (move'=1) ;
+
+
+	[Agent_move_north] move=0 &  viewAgent=3 &  !AgentIsOnSlippery & !AgentCannotMoveNorth -> (xAgent'=xAgent-1) & (move'=1) ;
+	[Agent_move_east]  move=0 &  viewAgent=0 &  !AgentIsOnSlippery & !AgentCannotMoveEast  -> (yAgent'=yAgent+1) & (move'=1) ;
+	[Agent_move_south] move=0 &  viewAgent=1 &  !AgentIsOnSlippery & !AgentCannotMoveSouth -> (xAgent'=xAgent+1) & (move'=1) ;
+	[Agent_move_west]  move=0 &  viewAgent=2 &  !AgentIsOnSlippery & !AgentCannotMoveWest  -> (yAgent'=yAgent-1) & (move'=1) ;
+
+endmodule
+
+module Blue
+	xBlue : [1..12] init 7;
+	yBlue : [1..12] init 11;
+
+	[Blue_turns]   move=1 &  true -> (xBlue'=xBlue) & (move'=0) ;
+
+
+	[Blue_move_north] move=1 &   !BlueIsOnSlippery & !BlueCannotMoveNorth -> (xBlue'=xBlue-1) & (move'=0) ;
+	[Blue_move_east]  move=1 &   !BlueIsOnSlippery & !BlueCannotMoveEast  -> (yBlue'=yBlue+1) & (move'=0) ;
+	[Blue_move_south] move=1 &   !BlueIsOnSlippery & !BlueCannotMoveSouth -> (xBlue'=xBlue+1) & (move'=0) ;
+	[Blue_move_west]  move=1 &   !BlueIsOnSlippery & !BlueCannotMoveWest  -> (yBlue'=yBlue-1) & (move'=0) ;
+
+endmodule
+

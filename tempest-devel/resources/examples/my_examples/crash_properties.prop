@@ -1,0 +1,6 @@
+Pmin=? [ F "crash" ];
+Pmax=? [ F "crash" ];
+Pmin=? [ F<5 "crash" ];
+Pmax=? [ F<5 "crash" ];
+Pmax=? [ F<7 "crash" ];
+

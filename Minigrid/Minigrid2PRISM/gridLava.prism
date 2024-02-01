@@ -1,0 +1,35 @@
+smg
+
+player Agent
+	[Agent_move_north], [Agent_move_east], [Agent_move_south], [Agent_move_west], [Agent_turn_left], [Agent_turn_right]
+endplayer
+
+global move : [0..0] init 0;
+
+formula AgentCannotMoveNorth = (xAgent=1&yAgent=1) | (xAgent=1&yAgent=2) | (xAgent=1&yAgent=3) | (xAgent=1&yAgent=4) | (xAgent=1&yAgent=5) | (xAgent=1&yAgent=6) | (xAgent=1&yAgent=7);
+formula AgentCannotMoveEast  = (xAgent=1&yAgent=7) | (xAgent=2&yAgent=1) | (xAgent=2&yAgent=7) | (xAgent=3&yAgent=1) | (xAgent=3&yAgent=7) | (xAgent=4&yAgent=1) | (xAgent=4&yAgent=7) | (xAgent=5&yAgent=1) | (xAgent=5&yAgent=7) | (xAgent=6&yAgent=1) | (xAgent=6&yAgent=7) | (xAgent=7&yAgent=7) | (xAgent=7&yAgent=1);
+formula AgentCannotMoveSouth = (xAgent=1&yAgent=2) | (xAgent=7&yAgent=3) | (xAgent=7&yAgent=4) | (xAgent=7&yAgent=5) | (xAgent=7&yAgent=6) | (xAgent=7&yAgent=7) | (xAgent=7&yAgent=1);
+formula AgentCannotMoveWest  = (xAgent=1&yAgent=1) | (xAgent=2&yAgent=1) | (xAgent=2&yAgent=3) | (xAgent=3&yAgent=1) | (xAgent=3&yAgent=3) | (xAgent=4&yAgent=1) | (xAgent=4&yAgent=3) | (xAgent=5&yAgent=1) | (xAgent=5&yAgent=3) | (xAgent=6&yAgent=1) | (xAgent=6&yAgent=3) | (xAgent=7&yAgent=3) | (xAgent=7&yAgent=1);
+formula AgentIsOnSlippery = false;
+
+label AgentGoal = (xAgent=7&yAgent=7);
+label crash = ;
+
+module Agent
+	xAgent : [1..8] init 7;
+	yAgent : [1..8] init 1;
+
+	viewAgent : [0..3] init 1;
+
+	[Agent_turn_right]  move=0 &  true -> (viewAgent'=mod(viewAgent + 1, 4))  & (move'=0) ;
+	[Agent_turn_left]   move=0 &  viewAgent>0 -> (viewAgent'=viewAgent - 1)  & (move'=0) ;
+	[Agent_turn_left]   move=0 &  viewAgent=0 -> (viewAgent'=3)  & (move'=0) ;
+
+
+	[Agent_move_north] move=0 &  viewAgent=3 &  !AgentIsOnSlippery & !AgentCannotMoveNorth -> (xAgent'=xAgent-1) & (move'=0) ;
+	[Agent_move_east]  move=0 &  viewAgent=0 &  !AgentIsOnSlippery & !AgentCannotMoveEast  -> (yAgent'=yAgent+1) & (move'=0) ;
+	[Agent_move_south] move=0 &  viewAgent=1 &  !AgentIsOnSlippery & !AgentCannotMoveSouth -> (xAgent'=xAgent+1) & (move'=0) ;
+	[Agent_move_west]  move=0 &  viewAgent=2 &  !AgentIsOnSlippery & !AgentCannotMoveWest  -> (yAgent'=yAgent-1) & (move'=0) ;
+
+endmodule
+

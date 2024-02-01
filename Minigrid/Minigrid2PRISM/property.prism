@@ -1,0 +1,2 @@
+concat(<Test, PreSafety, lambda=0.89> <<Blue>> Pmax=? [ G !"BlueOnBlue"  ], <Test, PreSafety, lambda=0.89> <<Agent>> Pmax=? [G<10 !"crash" ] );
+//<Test, PreSafety, lambda=0.89> <<one>> Pmax=? [G !"crash" ];
